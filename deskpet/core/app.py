@@ -1,5 +1,5 @@
 import tkinter as tk
-from plugins.manager import build_choices
+from ..plugins.manager import build_choices
 from .pet import Pet
 
 

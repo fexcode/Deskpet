@@ -1,7 +1,7 @@
 import tkinter as tk
 from PIL import Image, ImageTk
 import pyautogui as pt
-from plugins.base import ChoiceBase
+from ..plugins.base import ChoiceBase
 from typing import List, Type
 
 
