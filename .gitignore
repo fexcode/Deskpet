@@ -2,3 +2,6 @@ dist
 build
 __pycache__
 v
+setup.iss
+Pet/*
+*.spec
