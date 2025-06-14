@@ -7,3 +7,4 @@ Pet/*
 *.spec
 *.obj
 *.back
+debug.log

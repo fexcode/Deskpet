@@ -4,7 +4,8 @@ from deskpet.plugins.examples import *
 
 def main():
     choice_manager = ChoiceManager()
-    choice_manager.add_choice(TutorialChoice)
+    choice_manager.add_choice(AboutChoice)
+    choice_manager.add_choice(MenuExampleChoice)
     choice_manager.add_choice(ExitChoice)
 
     pet = Pet(
