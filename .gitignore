@@ -5,3 +5,5 @@ v
 setup.iss
 Pet/*
 *.spec
+*.obj
+*.back

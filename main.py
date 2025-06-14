@@ -8,8 +8,9 @@ def main():
     choice_manager.add_choice(ExitChoice)
 
     pet = Pet(
-        image_path="./logo.png", choice_list=choice_manager.all_choices
-    )  # 可以自定义图片路径等参数
+        image_path="./logo.png",
+        choice_manager=choice_manager,
+    )
     app = App(pet=pet)
 
     app.run()

@@ -2,14 +2,19 @@ import tkinter as tk
 from PIL import Image, ImageTk
 import pyautogui as pt
 from ..plugins.base import ChoiceBase
+from ..plugins.manager import ChoiceManager
 from typing import List, Type
+from deskpet.utils import logger
 
 
 class Pet:
     def __init__(
-        self, image_path="./logo.png", choice_list: List[Type[ChoiceBase]] | None = None
+        self, image_path="./logo.png", choice_manager: ChoiceManager | None = None
     ):
-        self.choice_list = choice_list or []
+        if choice_manager is None:
+            self.choice_list = []
+        else:
+            self.choice_list = choice_manager.all_choices
 
         # 获取屏幕分辨率
         WIDTH, HEIGHT = pt.size()
@@ -41,14 +46,21 @@ class Pet:
         # 绑定鼠标事件
         self.root.bind("<Button-1>", self._get_point)
         self.root.bind("<B1-Motion>", self._move_window)
+        self.root.bind("<ButtonRelease-1>", self._stop_move)
+
+    def _stop_move(self, event):
+        logger.info(f"in _stop_move: {self.posX=}, {self.posY=}")
 
     def _get_point(self, event):
-        self.posX, self.posY = event.x, event.y
+        self.posX, self.posY = self.root.winfo_x(), self.root.winfo_y()
+        # self.root.winfo_x():  获取窗口左上角x坐标
 
     def _move_window(self, event):
-        new_x = event.x_root - self.posX
-        new_y = event.y_root - self.posY
+        new_x = event.x_root - self.imgWidth // 2
+        new_y = event.y_root - self.imgHeight // 2
         self.root.geometry(f"+{new_x}+{new_y}")
+        # logger.info(f"in _move_window: {new_x=}, {new_y=},{self.posX=}, {self.posY=}")
+        self.posX, self.posY = new_x, new_y
 
     def bind_double_click(self, callback):
         """绑定双击事件"""
